@@ -1,4 +1,6 @@
-﻿using API.Helpers;
+﻿using API.DTO.NoteDto;
+using API.Helpers;
+using API.Mapper;
 using API.Models;
 using API.Services;
 using Microsoft.AspNetCore.Http;
@@ -25,17 +27,20 @@ namespace API.Controllers
                 return BadRequest(ModelState);
             }
             var notes = await _noteService.GetAllNotes(query);
-            return Ok(notes);
+            var notesMapped = notes.Select(n => n.ToNoteGetDto());
+            return Ok(notesMapped);
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateNote([FromBody] Note noteModel)
+        public async Task<IActionResult> CreateNote([FromBody] NoteCreateDto noteModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            var noteTocreate = await _noteService.CreateNote(noteModel);
+            var noteCreateMap = noteModel.ToNoteCreateDto();
+            var noteTocreate = await _noteService.CreateNote(noteCreateMap);
+
             return Created("Successfully Created Note",noteTocreate);
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace API.DTO
+﻿namespace API.DTO.NoteDto
 {
     public class NoteCreateDto
     {

@@ -1,4 +1,5 @@
 ﻿using API.Helpers;
+using API.Mapper;
 using API.Models;
 using API.Repository;
 
@@ -33,6 +34,7 @@ namespace API.Services
         public async Task<List<Note>> GetAllNotes(QueryObject query)
         {
             var notes = await _noteRepository.GetAllNotes(query);
+            
             return notes;
         }
 
