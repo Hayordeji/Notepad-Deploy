@@ -10,7 +10,8 @@ namespace API.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<AppUser> _userManager;    
+        private readonly UserManager<AppUser> _userManager;
+
         public AccountController(UserManager<AppUser> userManager)
         {
             _userManager = userManager;
@@ -30,24 +31,25 @@ namespace API.Controllers
                     Email = registerData.Email,
                     UserName = registerData.Username
                 };
-                var createdUser = _userManager.CreateAsync(appUser,registerData.Password);
+                var createdUser = await _userManager.CreateAsync(appUser, registerData.Password);
 
-                if (createdUser.IsCompletedSuccessfully)
+                if (createdUser.Succeeded)
                 {
-                    var roleResult = _userManager.AddToRoleAsync(appUser, "User");
-                    if (roleResult.IsCompletedSuccessfully)
+                    var roleResult = await _userManager.AddToRoleAsync(appUser, "User");
+                    if (roleResult.Succeeded)
                     {
                         return Ok("Account created successfully");
                     }
                     else
                     {
-                        return StatusCode(500,roleResult.Result);
+                        return StatusCode(500, roleResult.Errors);
                     }
                 }
                 else
                 {
-                    return StatusCode(500, createdUser.Result);
+                    return StatusCode(500, createdUser.Errors);
                 }
+               
 
 
             }
