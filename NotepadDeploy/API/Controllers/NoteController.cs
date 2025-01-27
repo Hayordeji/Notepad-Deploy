@@ -1,4 +1,5 @@
-﻿using API.DTO.NoteDto;
+﻿using System.Security.Claims;
+using API.DTO.NoteDto;
 using API.Helpers;
 using API.Mapper;
 using API.Models;
@@ -44,7 +45,11 @@ namespace API.Controllers
             {
                 return BadRequest();
             }
-            var username = User.Identity.Name;
+            var username = User.FindFirstValue(ClaimTypes.GivenName);
+            if (username == null )
+            {
+                return StatusCode(401,"Username not found");
+            }
             var user = await _userManager.FindByNameAsync(username);
             var noteCreateMap = noteModel.ToNoteCreateDto();
             var noteTocreate = await _noteService.CreateNote(noteCreateMap,user.Id);
