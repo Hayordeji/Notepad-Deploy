@@ -10,5 +10,7 @@ namespace API.Models
         public string? Description { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; }
+        public string UserId { get; set; }
+
     }
 }

@@ -4,6 +4,6 @@ namespace API.Service
 {
     public interface ITokenService
     {
-        Task<string> GetTokenAsync(AppUser user);
+        Task<string> CreateTokenAsync(AppUser user);
     }
 }

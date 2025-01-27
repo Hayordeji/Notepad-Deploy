@@ -12,11 +12,12 @@ namespace API.Services
         {
             _noteRepository = noteRepository;
         }
-        public async Task<Note> CreateNote(Note note)
+        public async Task<Note> CreateNote(Note note, string userId)
         {
             var newNote = new Note();
             newNote.Title = note.Title;
             newNote.Description = note.Description;
+            newNote.UserId = userId;
             await _noteRepository.CreateNote(newNote);
             return newNote;
         }

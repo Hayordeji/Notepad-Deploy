@@ -4,6 +4,7 @@ using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250127125435_NoteIdentity")]
+    partial class NoteIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,9 +110,8 @@ namespace API.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -144,13 +146,13 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7cf3fac9-bfbf-4be4-9675-edc3f6bf88f1",
+                            Id = "c75032ad-3d18-41aa-a4a3-43a47accaaf0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "e4ae009f-fe12-4397-9642-c6c5729e2065",
+                            Id = "7231e1e8-2c3e-4d15-87dd-49134e2c7372",
                             Name = "User",
                             NormalizedName = "USER"
                         });
